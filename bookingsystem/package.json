@@ -1,0 +1,22 @@
+{
+  "name": "bookingsystem",
+  "version": "1.0.0",
+  "description": "booking backend system",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon ./bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Carl Petter Svensson, Isabella Andersson",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.15.1"
+  }
+}
