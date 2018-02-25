@@ -28,6 +28,15 @@ module.exports = {
           as: 'personId',
         },
       },
+      teamId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Teams',
+          key: 'id',
+          as: 'teamId',
+        },
+      },
     }),
   down: (queryInterface/*, Sequelize*/) =>
     queryInterface.dropTable('Employees')
