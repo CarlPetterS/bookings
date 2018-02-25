@@ -1,4 +1,5 @@
 const Employee = require('../models').Employee;
+const Person = require('../models').Employee;
 
 module.exports = {
   list(req, res) {

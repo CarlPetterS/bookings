@@ -6,12 +6,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
   Person.associate = (models) => {
-    Person.hasOne(models.BusinessPartner, {
+    Person.hasMany(models.BusinessPartner, {
       foreignKey: 'personId',
       as: 'businessPartner',
     });
 
-    Person.hasOne(models.Employee, {
+    Person.hasMany(models.Employee, {
       foreignKey: 'personId',
       as: 'employee',
     });

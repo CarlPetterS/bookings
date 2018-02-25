@@ -4,6 +4,9 @@ DELETE FROM "People";
 DELETE FROM "Employees";
 DELETE FROM "BusinessPartners";
 DELETE FROM "Facilities";
+DELETE FROM "Bookings";
+DELETE FROM "CostLogs";
+DELETE FROM "Participants";
 
 
 INSERT INTO "Teams" (id, name, "createdAt", "updatedAt") VALUES (0, 'delta', current_timestamp, current_timestamp);
