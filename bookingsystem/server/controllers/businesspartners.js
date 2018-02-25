@@ -4,7 +4,7 @@ module.exports = {
   list(req, res) {
     return BusinessPartner
       .all()
-      .then(businessPartner => res.status(200).send(businessPartner))
+      .then(businessPartners => res.status(200).send(businessPartners))
       .catch(error => res.status(400).send(error));
   }
 };

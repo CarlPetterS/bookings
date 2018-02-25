@@ -12,6 +12,16 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'personId',
       onDelete: 'CASCADE',
     })
+
+    Employee.belongsTo(models.Team, {
+      foreignKey: 'teamId',
+      onDelete: 'CASCADE',
+    })
+
+    Employee.hasOne(models.Booking, {
+      foreignKey: 'employeeId',
+      as: 'booking',
+    })
   };
 
   return Employee;
