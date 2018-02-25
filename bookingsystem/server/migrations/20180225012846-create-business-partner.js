@@ -1,16 +1,12 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('BusinessPartnerPeople', {
+    queryInterface.createTable('BusinessPartners', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
-      },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
       },
       position: {
         type: Sequelize.STRING,
@@ -27,7 +23,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
       personId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
@@ -39,5 +35,5 @@ module.exports = {
       },
     }),
   down: (queryInterface/*, Sequelize*/) =>
-   queryInterface.dropTable('BusinessPartnerPeople');
+   queryInterface.dropTable('BusinessPartners')
 };

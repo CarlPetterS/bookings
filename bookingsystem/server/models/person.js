@@ -1,9 +1,14 @@
 module.exports = (sequelize, DataTypes) => {
-  const Person = sequelize.define('Person', {});
+  const Person = sequelize.define('Person', {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
+  });
   Person.associate = (models) => {
-    Person.hasOne(models.BusinessPartnerPerson, {
+    Person.hasOne(models.BusinessPartner, {
       foreignKey: 'personId',
-      as: 'businessPartnerPerson',
+      as: 'businessPartner',
     });
 
     Person.hasOne(models.Employee, {

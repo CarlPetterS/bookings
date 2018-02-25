@@ -7,10 +7,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       position: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -34,5 +30,5 @@ module.exports = {
       },
     }),
   down: (queryInterface/*, Sequelize*/) =>
-    queryInterface.dropTable('Employees');
+    queryInterface.dropTable('Employees')
 };

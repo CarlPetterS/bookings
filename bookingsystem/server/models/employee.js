@@ -1,10 +1,6 @@
 
 module.exports = (sequelize, DataTypes) => {
   const Employee = sequelize.define('Employee', {
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     position: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -14,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   Employee.associate = (models) => {
     Employee.belongsTo(models.Person, {
       foreignKey: 'personId',
-      onDelete: 'CASCADE'
+      onDelete: 'CASCADE',
     })
   };
 
