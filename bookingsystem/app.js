@@ -6,6 +6,9 @@ const bodyParser = require('body-parser');
 // Set up the express app
 const app = express();
 
+// Allow cross site origin requests (since we run react from another port)
+app.use(cors());
+
 // Log requests to the console.
 app.use(logger('dev'));
 
