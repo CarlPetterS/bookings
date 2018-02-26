@@ -42,10 +42,9 @@ class Modal extends React.Component {
   render() {
     const {
       value,
-      people
     } = this.props;
 
-    console.log(this.props)
+    const people = [];
     
 
     console.log("props: ",this.props)

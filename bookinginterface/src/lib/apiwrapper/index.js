@@ -8,6 +8,7 @@ module.exports = (fetch, baseUrl) => {
     getEmployees:        () => get('/api/employees'),
     getBusinessPartners: () => get('/api/businesspartners'),
     getTeams:            () => get('/api/teams'),
+    getRooms:            () => get('/api/rooms'),
     getPeople:           () => get('/api/people'),
     getCostLogs:         () => get('/api/costlogs'),
   }

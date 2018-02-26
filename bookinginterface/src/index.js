@@ -8,11 +8,14 @@ import Wrapper from './lib/apiwrapper';
 const api = Wrapper(fetch, 'http://127.0.0.1:8000');
 
 async function setupState() {
-  let people    = await api.getPeople();
-
+  let people = await api.getPeople();
+  let rooms  = await api.getRooms();
+  let teams  = await api.getTeams();
 
   return {
     people,
+    rooms,
+    teams
   }
 }
 
