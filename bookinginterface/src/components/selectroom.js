@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 class SelectRoom extends Component {
   constructor(props) {
     super(props);
-    this.state = { value: props.rooms[0].id };
+    this.state = { value: props.state.selectedRoom };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    console.log(`Selected room id: ${event.target.value}`)
+    this.props.update({...this.props, state: {...this.props.state, selectedRoom: event.target.value}})
     this.setState({value: event.target.value});
   }
 

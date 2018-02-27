@@ -5,16 +5,18 @@ const Room = require('../models').Room;
 
 module.exports = {
   create(req, res) {
-     return Booking
-      .create({
-        roomId: req.body.roomId,
-        bookingId: req.body.bookingId,
-        start_date: req.body.startDate,
-        end_date: req.body.endDate,
-        employeeId: req.body.booked_by,
-      })
-      .then(booking => res.status(201).send(booking))
-      .catch(error => res.status(400).send(error));
+    console.log("HELLO!!!!!!!!!!!!!!")
+    console.log(req.body)
+    return Booking
+    .create({
+      roomId: req.body.roomId,
+      bookingId: req.body.bookingId,
+      start_date: req.body.startDate,
+      end_date: req.body.endDate,
+      employeeId: req.body.booked_by,
+    })
+    .then(booking => res.status(201).send(booking))
+    .catch(error => res.status(400).send(error));
   },
 
   list(req, res) {

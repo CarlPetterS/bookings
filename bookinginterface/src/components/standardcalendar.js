@@ -44,9 +44,6 @@ export default class StandardCalendar extends React.Component {
       selectedIntervals.splice(index, 1);
       this.setState({selectedIntervals});
     }
-
-    console.log(index, selectedIntervals)
-
   }
 
   handleEventUpdate = (event) => {
@@ -61,12 +58,32 @@ export default class StandardCalendar extends React.Component {
   handleSelect = (newIntervals) => {
     const {lastUid, selectedIntervals} = this.state;
     const intervals = newIntervals.map( (interval, index) => {
-    
       return {
         ...interval,
         uid: lastUid + index
       }
     });
+
+    console.log("hello: ",intervals[0].end.toString())
+    const booking = {
+      endDate: intervals[0].end.toString(),
+      startDate: intervals[0].start.toString(),
+      roomId: this.props.state.selectedRoom,
+      booked_by: this.props.state.selectedEmployee
+    }
+
+    const duration = moment.duration(intervals[0].end.diff(intervals[0].start));
+    const hours = duration.asHours();
+
+    const teamIdParamForCostLog = this.props.state.selectedTeam;
+    const costLog = {
+      date: intervals[0].start.toDate(),
+      cost: hours * (this.props.rooms.find(r => r.id === booking.roomId).cost_per_hr)
+    }
+
+    const { createBooking, createCostLog } = this.props.api
+
+    createBooking(booking).then(console.log).catch(console.log)
 
     this.setState({
       selectedIntervals: selectedIntervals.concat(intervals),

@@ -7,7 +7,6 @@ const propTypes = {
   value: PropTypes.string,
   onRemove: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
-  people: PropTypes.array
 };
 
 const defaultProps = {
@@ -46,10 +45,9 @@ class Modal extends React.Component {
 
     const people = [];
     
-
-    console.log("props: ",this.props)
     return (
       <div className="customModal">
+        <div className="customModal__text"><h1>Book a room</h1></div>
         <div className="customModal__text">{this.renderText()}</div>
         <input
           ref={(el) => { this.input = el; }}
@@ -59,7 +57,7 @@ class Modal extends React.Component {
           defaultValue={value}
         />
         <form className="form-group">
-            <label className="user-description">Select articipants: </label>
+            <label className="user-description">Select participants: </label>
             <select className="form-control user-select">
               {people.map((person, i) =>(<option key={i} value={person.employee[0].id}>{person.name}, {person.employee.length > 0 ? person.employee[0].position : `${person.businesspartner[0].position} på ${person.businesspartner[0].company}`}</option>))}
             </select>

@@ -3,13 +3,12 @@ import React, { Component } from 'react';
 class SelectEmployee extends Component {
   constructor(props) {
     super(props);
-    this.state = {value: 0};
-
+    this.state = {value: props.state.selectedEmployee };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    console.log(`Selected user id: ${event.target.value}`)
+    this.props.update({...this.props, state: {...this.props.state, selectedEmployee: event.target.value}})
     this.setState({value: event.target.value});
   }
 
