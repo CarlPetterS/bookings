@@ -18,7 +18,8 @@ export default class StandardCalendar extends React.Component {
         uid: i + 1,
         start: moment(booking.start_date),
         end: moment(booking.end_date),
-        value: people.find(p=>p.employee[0].id===booking.employeeId).name
+        value: people.find(p=>p.employee[0].id===booking.employeeId).name,
+        bookingId: booking.id,
       }))
     }
   }
@@ -34,18 +35,16 @@ export default class StandardCalendar extends React.Component {
         uid: i + 1,
         start: moment(booking.start_date),
         end: moment(booking.end_date),
-        value: people.find(p=>p.employee[0].id===booking.employeeId).name
+        value: people.find(p=>p.employee[0].id===booking.employeeId).name,
+        bookingId: booking.id,
       }))
     })
   }
 
   handleEventRemove = (event) => {
-    const {selectedIntervals} = this.state;
-    const index = selectedIntervals.findIndex((interval) => interval.uid === event.uid);
-    if (index > -1) {
-      selectedIntervals.splice(index, 1);
-      this.setState({selectedIntervals});
-    }
+    this.props.api.deleteBooking(event.bookingId).then(() => {
+      this.props.updateRooms(this.props);
+    }).catch(console.log)
   }
 
   handleEventUpdate = (event) => {

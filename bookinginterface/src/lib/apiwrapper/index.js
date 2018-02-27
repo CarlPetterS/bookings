@@ -14,6 +14,8 @@ module.exports = (fetch, baseUrl) => {
     })
     .then(response => response.json());
 
+  const del = (path) => fetch(baseUrl+(path || '/'),{method: 'delete'})
+
   return {
     getRoot:             ()             => get(),
     getApi:              ()             => get('/api'),
@@ -24,6 +26,7 @@ module.exports = (fetch, baseUrl) => {
     getPeople:           ()             => get('/api/people'),
     getCostLogs:         ()             => get('/api/costlogs'),
     createCostLog:       (teamId, data) => post(`/api/teams/${teamId}/costlogs`, data),
-    createBooking:       (data)         => post('/api/bookings', data)
+    createBooking:       (data)         => post('/api/bookings', data),
+    deleteBooking:       (bookingId)    => del(`/api/bookings/${bookingId}`),
   }
 }
