@@ -30,18 +30,36 @@ async function setupState() {
     rooms,
     teams,
     update,
+    updatePeople,
+    updateRooms,
+    updateTeams,
+    updateAll,
     state,
     setupState,
     api
   }
 }
 
+const updatePeople = (props) => api.getPeople().then(people => update({...props, people}))
+const updateRooms = (props) => api.getRooms().then(rooms => update({...props, rooms}))
+const updateTeams = (props) => api.getTeams().then(teams => update({...props, teams}))
+async function updateAll(props) {
+  let people = await api.getPeople();
+  let rooms  = await api.getRooms();
+  let teams  = await api.getTeams();
+  update({
+    ...props,
+    people,
+    rooms,
+    teams,
+  })
+}
 // We call this on each method update, re rendering the entire tree is actually
 // not a problem because of diffing algorithms in the react components layer (thanks facebook).
-const update = state => {
+const update = props => {
   console.log("UPDATING WITH:")
-  console.log(state)
-  ReactDOM.render(<App {...state} />, document.getElementById('root'))
+  console.log(props)
+  ReactDOM.render(<App {...props} />, document.getElementById('root'))
 }
 
 // Setup the state and then render

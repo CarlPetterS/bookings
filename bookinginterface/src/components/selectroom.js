@@ -9,7 +9,7 @@ class SelectRoom extends Component {
   }
 
   handleChange(event) {
-    this.props.update({...this.props, state: {...this.props.state, selectedRoom: event.target.value}})
+    this.props.update({...this.props, state: {...this.props.state, selectedRoom: parseInt(event.target.value)}})
     this.setState({value: event.target.value});
   }
 

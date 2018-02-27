@@ -9,32 +9,34 @@ export default class StandardCalendar extends React.Component {
     super(props);
 
     const { people } = props;
+    const room = props.rooms.find(r => r.id === props.state.selectedRoom)
 
     this.state = {
       people: people,
       lastUid: 4,
-      selectedIntervals: [
-        {
-          uid: 1,
-          start: moment({h: 10, m: 5}),
-          end: moment({h: 12, m: 5}),
-          value: "Booked by Smith",
-          hello: "hello"
-        },
-        {
-          uid: 2,
-          start: moment({h: 13, m: 0}).add(2,'d'),
-          end: moment({h: 13, m: 45}).add(2,'d'),
-          value: "Closed"
-        },
-        {
-          uid: 3,
-          start: moment({h: 11, m: 0}),
-          end: moment({h: 14, m: 0}),
-          value: "Reserved by White"
-        },
-      ]
+      selectedIntervals: room.bookings.map((booking, i) => ({
+        uid: i + 1,
+        start: moment(booking.start_date),
+        end: moment(booking.end_date),
+        value: people.find(p=>p.employee[0].id===booking.employeeId).name
+      }))
     }
+  }
+
+  componentWillReceiveProps(props) {
+    const { people } = props;
+    const room = props.rooms.find(r => r.id === props.state.selectedRoom)
+
+    this.setState({
+      people: people,
+      lastUid: 4,
+      selectedIntervals: room.bookings.map((booking, i) => ({
+        uid: i + 1,
+        start: moment(booking.start_date),
+        end: moment(booking.end_date),
+        value: people.find(p=>p.employee[0].id===booking.employeeId).name
+      }))
+    })
   }
 
   handleEventRemove = (event) => {
@@ -64,7 +66,6 @@ export default class StandardCalendar extends React.Component {
       }
     });
 
-    console.log("hello: ",intervals[0].end.toString())
     const booking = {
       endDate: intervals[0].end.toString(),
       startDate: intervals[0].start.toString(),
@@ -76,19 +77,18 @@ export default class StandardCalendar extends React.Component {
     const hours = duration.asHours();
 
     const teamIdParamForCostLog = this.props.state.selectedTeam;
+    const room = this.props.rooms.find(r => r.id === booking.roomId)
     const costLog = {
       date: intervals[0].start.toDate(),
-      cost: hours * (this.props.rooms.find(r => r.id === booking.roomId).cost_per_hr)
+      cost: hours * (room.cost_per_hr) + (room.facilities.reduce((sum, fac) => fac.cost + sum,0))
     }
 
     const { createBooking, createCostLog } = this.props.api
 
-    createBooking(booking).then(console.log).catch(console.log)
-
-    this.setState({
-      selectedIntervals: selectedIntervals.concat(intervals),
-      lastUid: lastUid + newIntervals.length
-    })
+    Promise.all([createBooking(booking), createCostLog(teamIdParamForCostLog, costLog)]).then(res => {
+      console.log(res);
+      this.props.updateRooms(this.props)
+    }).catch(console.log)
   }
 
   render() {

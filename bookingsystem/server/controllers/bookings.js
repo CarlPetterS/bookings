@@ -5,8 +5,6 @@ const Room = require('../models').Room;
 
 module.exports = {
   create(req, res) {
-    console.log("HELLO!!!!!!!!!!!!!!")
-    console.log(req.body)
     return Booking
     .create({
       roomId: req.body.roomId,

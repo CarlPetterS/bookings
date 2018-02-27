@@ -8,7 +8,7 @@ class SelectEmployee extends Component {
   }
 
   handleChange(event) {
-    this.props.update({...this.props, state: {...this.props.state, selectedEmployee: event.target.value}})
+    this.props.update({...this.props, state: {...this.props.state, selectedEmployee: parseInt(event.target.value)}})
     this.setState({value: event.target.value});
   }
 
