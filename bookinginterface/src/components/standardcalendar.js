@@ -65,6 +65,9 @@ export default class StandardCalendar extends React.Component {
       }
     });
 
+    console.log("hello?")
+    console.log(this.state)
+
     const booking = {
       endDate: intervals[0].end.toString(),
       startDate: intervals[0].start.toString(),
@@ -82,12 +85,20 @@ export default class StandardCalendar extends React.Component {
       cost: hours * (room.cost_per_hr) + (room.facilities.reduce((sum, fac) => fac.cost + sum,0))
     }
 
-    const { createBooking, createCostLog } = this.props.api
+    const { createBooking, createCostLog, createParticipant } = this.props.api
 
-    Promise.all([createBooking(booking), createCostLog(teamIdParamForCostLog, costLog)]).then(res => {
-      console.log(res);
-      this.props.updateRooms(this.props)
-    }).catch(console.log)
+    Promise
+      .all([createBooking(booking), createCostLog(teamIdParamForCostLog, costLog)])
+      .then(res => { 
+        const bookingId = res.find(r => r.start_date).id
+        
+        return Promise.all(window.selected.map(participant => createParticipant(bookingId,{personId: participant.value})))
+      })
+      .then(res => {
+        window.selected = [];
+        this.props.updateRooms(this.props)
+      })
+      .catch(console.log)
   }
 
   render() {

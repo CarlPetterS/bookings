@@ -41,12 +41,13 @@ async function setupState() {
 }
 
 const updatePeople = (props) => api.getPeople().then(people => update({...props, people}))
-const updateRooms = (props) => api.getRooms().then(rooms => update({...props, rooms}))
-const updateTeams = (props) => api.getTeams().then(teams => update({...props, teams}))
+const updateRooms  = (props) =>  api.getRooms().then(rooms =>  update({...props, rooms}))
+const updateTeams  = (props) =>  api.getTeams().then(teams =>  update({...props, teams}))
 async function updateAll(props) {
   let people = await api.getPeople();
   let rooms  = await api.getRooms();
   let teams  = await api.getTeams();
+
   update({
     ...props,
     people,
@@ -59,6 +60,7 @@ async function updateAll(props) {
 const update = props => {
   console.log("UPDATING WITH:")
   console.log(props)
+  window.props = props; // this is really bad. hehe. We use it for the react-week-component because i was lazy.
   ReactDOM.render(<App {...props} />, document.getElementById('root'))
 }
 

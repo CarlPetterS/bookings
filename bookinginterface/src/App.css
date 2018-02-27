@@ -8,3 +8,24 @@
 .user-description {
   margin-right: 15px;
 }
+
+.selectpicker * {
+  display:block;
+
+  width: 100%;
+}
+
+.selectedparticipants {
+  width: 100%;
+}
+
+.participantselection {
+  width: 47%;
+  margin-bottom: 20px;
+  float:left;
+}
+
+.infobox {
+  width: 47%;
+  float:right;
+}
