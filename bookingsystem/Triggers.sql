@@ -1,12 +1,5 @@
 --This file contains triggers and trigger procedures handling bookings
 
--- Trigger that runs on all deletes of bookings
-CREATE TRIGGER check_delete
-BEFORE DELETE
-ON "Bookings"
-FOR EACH ROW
-EXECUTE PROCEDURE check_delete();
-
 -- Trigger procedure that raises exceptions for deletes on bookings that has already past
 create or replace function check_delete() returns trigger language plpgsql as $$
 BEGIN
@@ -15,12 +8,12 @@ END IF;
 return old;
 end $$;
 
--- Trigger that runs on all inserts and updates on bookings
-CREATE TRIGGER check_date
-  BEFORE INSERT OR UPDATE
-  ON "Bookings"
-  FOR EACH ROW
-EXECUTE PROCEDURE check_date_logic();
+-- Trigger that runs on all deletes of bookings
+CREATE TRIGGER check_delete
+BEFORE DELETE
+ON "Bookings"
+FOR EACH ROW
+EXECUTE PROCEDURE check_delete();
 
 -- Trigger procedure that raises exceptions for all inserts with invalid dates
 create or replace function check_date_logic() returns trigger language plpgsql as $$
@@ -42,3 +35,10 @@ END IF;
 -- else return the instance
 return new;
 end $$;
+
+-- Trigger that runs on all inserts and updates on bookings
+CREATE TRIGGER check_date
+  BEFORE INSERT OR UPDATE
+  ON "Bookings"
+  FOR EACH ROW
+EXECUTE PROCEDURE check_date_logic();
