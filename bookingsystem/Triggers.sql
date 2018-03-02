@@ -42,3 +42,23 @@ CREATE TRIGGER check_date
   ON "Bookings"
   FOR EACH ROW
 EXECUTE PROCEDURE check_date_logic();
+
+--Trigger procedure that raises exceptions for deletes of teamst that are in the costlog
+create or replace function check_cost_log() returns trigger language plpgsql as $$
+BEGIN
+  IF (EXISTS (SELECT * FROM "CostLogs"
+    WHERE old."id" = "CostLogs"."teamId"
+  ))
+  THEN RAISE EXCEPTION 'This team has costs accosiated with it and cant be removed';
+  END IF;
+return old;
+end $$;
+
+--Trigger for preventing CostLogs to be removed
+CREATE TRIGGER check_team_removal
+  BEFORE DELETE
+  ON "Teams"
+  FOR EACH ROW
+EXECUTE PROCEDURE check_cost_log();
+
+--
