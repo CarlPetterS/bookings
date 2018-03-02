@@ -16,13 +16,11 @@ async function setupState() {
   const roomId = rooms[0].id;
   const employee = people.filter(e => e.employee.length > 0)[0].employee[0]
   // Active team depends on the employee currently looking to make a booking.
-  // This is an awkward case for us, since employees belongs to team, but it is acceptable.
-  const teamId = teams.find(t => t.id === employee.teamId).id;
 
   const state = {
     selectedRoom: roomId,
     selectedEmployee: employee.id,
-    selectedTeam: teamId,
+    selectedTeam: employee.teamId,
   }
 
   return {

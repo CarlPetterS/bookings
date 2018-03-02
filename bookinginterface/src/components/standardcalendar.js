@@ -20,6 +20,7 @@ export default class StandardCalendar extends React.Component {
         end: moment(booking.end_date),
         value: people.find(p=>p.employee[0].id===booking.employeeId).name,
         bookingId: booking.id,
+        employeeId: booking.employeeId
       }))
     }
   }
@@ -37,14 +38,20 @@ export default class StandardCalendar extends React.Component {
         end: moment(booking.end_date),
         value: people.find(p=>p.employee[0].id===booking.employeeId).name,
         bookingId: booking.id,
+        employeeId: booking.employeeId,
       }))
     })
   }
 
   handleEventRemove = (event) => {
-    this.props.api.deleteBooking(event.bookingId).then(() => {
-      this.props.updateRooms(this.props);
-    }).catch(console.log)
+    if (event.employeeId !== this.props.state.selectedEmployee) {
+      alert('Error! You cannot remove other users bookings.');
+    } else {
+    this.props.api.deleteBooking(event.bookingId)
+      .then(() => {
+        this.props.updateRooms(this.props);
+      }).catch(console.log)
+    }
   }
 
   handleEventUpdate = (event) => {
@@ -64,9 +71,6 @@ export default class StandardCalendar extends React.Component {
         uid: lastUid + index
       }
     });
-
-    console.log("hello?")
-    console.log(this.state)
 
     const booking = {
       endDate: intervals[0].end.toString(),
@@ -91,14 +95,13 @@ export default class StandardCalendar extends React.Component {
       .all([createBooking(booking), createCostLog(teamIdParamForCostLog, costLog)])
       .then(res => { 
         const bookingId = res.find(r => r.start_date).id
-        
         return Promise.all(window.selected.map(participant => createParticipant(bookingId,{personId: participant.value})))
       })
       .then(res => {
         window.selected = [];
         this.props.updateRooms(this.props)
       })
-      .catch(console.log)
+      .catch(() => alert("Can't make overlapping bookings or bookings that have already happened, please try again."))
   }
 
   render() {

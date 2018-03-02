@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     CostLog.belongsTo(models.Team, {
       foreignKey: 'teamId',
-      onDelete: 'CASCADE' // TODO: this must be fixed.
+      onDelete: 'set null'
     })
   };
   return CostLog;

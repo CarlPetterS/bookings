@@ -26,7 +26,7 @@ module.exports = {
       },
       teamId: {
         type: Sequelize.INTEGER,
-        onDelete: 'CASCADE',
+        onDelete: 'set null',
         references: {
           model: 'Teams',
           key: 'id',

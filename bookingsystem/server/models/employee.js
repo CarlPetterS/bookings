@@ -5,6 +5,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    teamId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   });
 
   Employee.associate = (models) => {

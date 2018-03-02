@@ -16,6 +16,7 @@ module.exports = (app) => {
   app.get('/api/people', peopleController.list);
 
   app.get('/api/employees', employeesController.list);
+  app.get('/api/employees/:employeeId', employeesController.retrieve);
 
   app.get('/api/businesspartners', businessPartnersController.list);
 

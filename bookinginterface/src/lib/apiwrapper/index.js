@@ -28,6 +28,7 @@ module.exports = (fetch, baseUrl) => {
     createCostLog:       (teamId, data)    => post(`/api/teams/${teamId}/costlogs`, data),
     createBooking:       (data)            => post('/api/bookings', data),
     deleteBooking:       (bookingId)       => del(`/api/bookings/${bookingId}`),
-    createParticipant:   (bookingId, data) => post(`/api/bookings/${bookingId}/participants`, data)
+    createParticipant:   (bookingId, data) => post(`/api/bookings/${bookingId}/participants`, data),
+    getEmployee:         (employeeId)      => get(`/api/employees/${employeeId}`)
   }
 }
